@@ -91,6 +91,21 @@ class PostingEngine:
         self._validate_identities(report)
         return report
 
+    def post_documents(self, documents: Sequence[Any]) -> dict[str, Any]:
+        report = self._empty_report(date.today())
+        report["invoices_seen"] = len(documents)
+        for document in documents:
+            self._post_invoice(report, document)
+        report["amount_posted"] = format_money(Decimal(report["_amount_posted"]))
+        report["sales_amount_posted"] = format_money(Decimal(report["_sales_amount_posted"]))
+        report["returns_amount_posted"] = format_money(Decimal(report["_returns_amount_posted"]))
+        report["amount_rejected"] = format_money(Decimal(report["_amount_rejected"]))
+        report.pop("_amount_posted")
+        report.pop("_sales_amount_posted")
+        report.pop("_returns_amount_posted")
+        report.pop("_amount_rejected")
+        return report
+
     @staticmethod
     def _empty_report(run_date: date) -> dict[str, Any]:
         return {

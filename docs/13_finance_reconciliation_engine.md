@@ -171,6 +171,24 @@ The focused suite contains 23 passing tests covering money formats, date formats
 
 ## PostgreSQL and Later Phases
 
-The adapter reads existing PostgreSQL operational data in read-only mode. This phase does not add a persistence table or perform accounting posting. Existing FinSight operational entities remain the source of truth.
+The adapter reads existing PostgreSQL operational data, while Phase 4 persists reconciliation and mock-posting results in:
 
-PostgreSQL persistence, anomaly detection, AI insights, agents, RAG, FastAPI, and frontend integration require separate design and review.
+- `finance_reconciliation_runs`
+- `finance_reconciliation_lines`
+- `accounting_postings`
+
+Existing FinSight operational entities remain the source of truth. The accounting client used for current validation is local and deterministic; no real external accounting system is integrated.
+
+Phase 4 behavior verified against the live database:
+
+- One run persisted with status `COMPLETED_WITH_BLOCKS`.
+- 14,985 finance lines persisted.
+- 4,854 eligible sales posted to the local mock client.
+- 350 return groups remained `FINANCE_FIELDS_INCOMPLETE`.
+- No return posting records were created.
+- Invoice identity is the accounting idempotency key.
+- Retry and timeout behavior remains capped at three total attempts.
+
+The persistence migration is [002_finance_persistence.sql](../database/schema/002_finance_persistence.sql). It does not duplicate operational sales, returns, customers, stores, or products.
+
+Anomaly detection, AI insights, agents, RAG, FastAPI, and frontend integration require separate design and review.

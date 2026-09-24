@@ -91,7 +91,10 @@ The current live result is:
 
 - 4,854 completed sales reconciled.
 - 350 approved returns extracted but blocked because return-level tax fields are unavailable.
-- No accounting posting or persistence-table integration yet.
+- Reconciliation and accounting-posting results persist in three Phase 4 PostgreSQL tables.
+- The current validation uses a local mock accounting client; no real external accounting service is integrated.
+
+Phase 4 persists reconciliation runs and traceable finance lines, then mock-posts only eligible reconciled sales with retry and invoice-based idempotency handling. Blocked returns are not posted.
 
 Run it with:
 
