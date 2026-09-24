@@ -18,6 +18,9 @@ secrets/
 *.key
 *.crt
 
+# Dataset-embedded credential file
+data/**/reference/.env
+
 # Logs and temporary files
 *.log
 logs/
