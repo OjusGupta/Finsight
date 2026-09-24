@@ -114,21 +114,49 @@ This diary records the project phases and separates completed evidence from plan
 
 **Current status:** Validation notes recorded; fresh live execution is **To be verified**.
 
-## Phase 9 - Next: Anomaly Detection
+## Phase 9 - Finance Reconciliation Engine
 
-**Goal:** Identify unusual sales, returns, stock, or finance patterns.
+**Goal:** Implement deterministic finance reconciliation and connect it to the existing ERP data.
 
-**What I did:** The schema includes an anomalies table.
+**What I did:** Built the full `finops/` package: money parsing, date parsing, validation, deduplication, reconciliation, posting engine, retry/idempotency logic, ledger, journal, ERP adapter, and integration layer.
 
-**Problems:** A complete detector is not evidenced in inspected code.
+**Problems:** Return-level tax fields (`taxable_value`, `gst_amount`) are not available in the source ERP data, so 350 return groups cannot be reconciled.
 
-**Fixes:** None yet.
+**Fixes:** Blocked returns are preserved with state `FINANCE_FIELDS_INCOMPLETE` and are not posted. The `sale_items.tax_amount` column was verified against all 15,067 processed rows.
 
-**What I learned:** Detection rules should be measurable before an agent explains them.
+**What I learned:** Deterministic reconciliation must be separated from posting. Blocked records must be traceable, not silently dropped.
 
-**Current status:** TODO.
+**Current status:** 4,854 sales reconciled. 350 returns blocked. 23 tests passing.
 
-## Phase 10 - Planned AI Layer
+## Phase 10 - Finance Persistence and Accounting Posting
+
+**Goal:** Persist reconciliation results to PostgreSQL and simulate accounting posting with idempotency.
+
+**What I did:** Added three tables (`finance_reconciliation_runs`, `finance_reconciliation_lines`, `accounting_postings`). Implemented `PostgresPersistence`, mock accounting client, retry logic capped at 3 attempts, and invoice-based idempotency keys.
+
+**Problems:** None blocking. Mock client used; no real external accounting API integrated.
+
+**Fixes:** N/A.
+
+**What I learned:** Idempotency keys must survive retries and reruns. Persistence and posting must be separated from reconciliation logic.
+
+**Current status:** 1 run persisted. 14,985 lines persisted. 4,854 postings with status POSTED. 31 tests passing.
+
+## Phase 11 - Finance Analytics and Anomaly Integration
+
+**Goal:** Connect the finance persistence tables to the existing anomaly system and produce deterministic finance analytics.
+
+**What I did:** Implemented `finops/finance_analytics.py` with `FinanceAnalytics` (reconciliation summary, status by store, reconciled sales by store/date, blocked returns, posting counts, posting status by invoice). Implemented `build_finance_anomaly_candidates` and `persist_finance_anomalies` with description-based idempotency to prevent duplicate anomaly insertion. Implemented `finops/phase5.py` as the entry point. Populated `database/queries/finance.sql` with 12 analytics queries.
+
+**Problems:** The `anomalies` table has no dedicated finance foreign-key columns, so traceability is embedded in the `description` field using a structured key=value format.
+
+**Fixes:** Each anomaly description carries `run_id`, `finance_line_id`, `invoice_no`, `company_id`, `store_id`, `customer_id`, `product_id`, `sale_id`, `return_id`, and `return_item_id`. Re-running Phase 5 checks existing descriptions before inserting, so no duplicates are created.
+
+**What I learned:** Idempotency for anomaly insertion requires a stable, deterministic description key. Finance anomalies must be traceable back to the source record through the description when dedicated FK columns are absent.
+
+**Current status:** 350 `FINANCE_FIELDS_INCOMPLETE` anomalies inserted. 0 posting failures or retries in the current run. 34 tests passing. Re-running Phase 5 inserts 0 new anomalies (idempotent).
+
+## Phase 12 - Planned AI Layer
 
 **Goal:** Let agents explain evidence and recommend actions.
 
@@ -138,7 +166,7 @@ This diary records the project phases and separates completed evidence from plan
 
 **Fixes:** None yet.
 
-**What I learned:** AI should sit after validated data products.
+**What I learned:** AI should sit after validated data products and verified anomalies.
 
 **Current status:** Planned.
 

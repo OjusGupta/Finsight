@@ -96,6 +96,8 @@ The current live result is:
 
 Phase 4 persists reconciliation runs and traceable finance lines, then mock-posts only eligible reconciled sales with retry and invoice-based idempotency handling. Blocked returns are not posted.
 
+Phase 5 adds deterministic finance analytics and anomaly integration. It reports reconciliation states by store/date, blocked returns, posting outcomes, attempts, and invoice status. The live run produced 350 unique `FINANCE_FIELDS_INCOMPLETE` anomalies for blocked returns; existing `SALES_SPIKE` and `LOW_STOCK_WITH_DEMAND` anomaly rules remain deterministic. No AI or real external accounting service is involved.
+
 Run it with:
 
 ```text
@@ -106,12 +108,13 @@ The engine is independent of PostgreSQL and external AI services. PostgreSQL per
 
 ## Roadmap
 
-1. Build and validate anomaly detection.
-2. Populate AI insights and action items from verified evidence.
-3. Implement the FastAPI backend and authentication.
-4. Implement the Streamlit dashboard.
-5. Implement LangGraph agents and RAG policy retrieval.
-6. Expand automated tests and deployment documentation.
+1. ✓ Build and validate anomaly detection (deterministic rules complete).
+2. ✓ Finance analytics and anomaly integration (Phase 5 complete).
+3. Implement the FastAPI backend and authentication (Phase 6 — next).
+4. Implement RAG policy knowledge base (Phase 7).
+5. Implement LangGraph agents (Phase 8).
+6. Populate AI insights and action items from verified evidence (Phase 9).
+7. Implement the Streamlit dashboard (Phase 10).
 
 ## Documentation
 
@@ -127,3 +130,4 @@ The engine is independent of PostgreSQL and external AI services. PostgreSQL per
 - [API design](docs/10_api_design.md)
 - [Development log](docs/11_development_log.md)
 - [Next steps](docs/12_next_steps.md)
+- [Phase 5: Finance analytics and anomaly integration](docs/14_phase5_finance_analytics.md)

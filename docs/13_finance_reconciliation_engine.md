@@ -191,4 +191,26 @@ Phase 4 behavior verified against the live database:
 
 The persistence migration is [002_finance_persistence.sql](../database/schema/002_finance_persistence.sql). It does not duplicate operational sales, returns, customers, stores, or products.
 
+## Finance Analytics and Anomalies
+
+Phase 5 reads the persisted finance tables to provide:
+
+- Reconciliation state by store.
+- Reconciled sales amount by store and date.
+- Blocked return details.
+- Posting success/failure and retry counts.
+- Posting status and idempotency information by invoice.
+- Run-level reconciliation summaries.
+
+The deterministic anomaly integration currently creates traceable `FINANCE_FIELDS_INCOMPLETE` anomalies for blocked finance lines. Each description carries the run, finance-line, invoice, store, company, customer, product, sale, return, and source-line identifiers because the existing `anomalies` table does not have dedicated finance foreign-key columns.
+
+Live Phase 5 results:
+
+- 350 unique `FINANCE_FIELDS_INCOMPLETE` anomalies inserted for blocked returns.
+- 4,854 posting records with `POSTED` status.
+- No posting failure or retry anomalies in the current run.
+- Existing anomaly results remain: 32 `SALES_SPIKE` and 23 `LOW_STOCK_WITH_DEMAND`.
+
+These anomaly rules are deterministic database-backed rules. AI agents, RAG, and LangGraph are not involved.
+
 Anomaly detection, AI insights, agents, RAG, FastAPI, and frontend integration require separate design and review.
