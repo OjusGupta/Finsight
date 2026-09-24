@@ -1,0 +1,241 @@
+product_id,category_id,sku,product_name,cost_price,selling_price,status
+1,1,SKU-0001,Classic Phone 001,22408.78,25243.55,active
+2,1,SKU-0002,Pro Laptop 002,9684.02,11408.11,active
+3,1,SKU-0003,Max Headphones 003,25797.57,33432.15,active
+4,1,SKU-0004,Lite Keyboard 004,31234.91,35689.14,active
+5,1,SKU-0005,Plus Mouse 005,14813.51,16705.9,active
+6,1,SKU-0006,Prime Monitor 006,7714.84,9654.29,active
+7,1,SKU-0007,Eco Blender 007,1006.64,1179.48,active
+8,1,SKU-0008,Ultra Rice Pack 008,22773.96,28733.56,active
+9,1,SKU-0009,Classic Shampoo 009,7777.79,9902.75,active
+10,1,SKU-0010,Pro T-Shirt 010,28345.31,31794.64,active
+11,1,SKU-0011,Max Notebook 011,28219.21,36727.76,active
+12,1,SKU-0012,Lite Backpack 012,11961.55,13880.48,active
+13,1,SKU-0013,Plus Shoes 013,33505.88,40458.84,active
+14,1,SKU-0014,Prime Smartwatch 014,3318.68,3800.37,active
+15,1,SKU-0015,Eco Speaker 015,29674.5,37893.41,active
+16,1,SKU-0016,Ultra Power Bank 016,28264.92,37019.42,active
+17,1,SKU-0017,Classic Camera 017,18805.08,25819.56,active
+18,1,SKU-0018,Pro Vacuum Cleaner 018,13298.42,16802.96,active
+19,1,SKU-0019,Max Desk Lamp 019,29042.81,37198.47,active
+20,1,SKU-0020,Lite Charger 020,30170.8,38320.28,active
+21,1,SKU-0021,Plus Phone 021,24683.65,27939.78,active
+22,1,SKU-0022,Prime Laptop 022,8038.21,9607.6,active
+23,1,SKU-0023,Eco Headphones 023,2866.34,3383.79,active
+24,1,SKU-0024,Ultra Keyboard 024,3606.97,4300.49,active
+25,1,SKU-0025,Classic Mouse 025,22278.1,27064.69,active
+26,1,SKU-0026,Pro Monitor 026,13006.72,15276.03,active
+27,1,SKU-0027,Max Blender 027,9402.87,12821.1,active
+28,1,SKU-0028,Lite Rice Pack 028,22709.4,29031.11,active
+29,1,SKU-0029,Plus Shampoo 029,6056.16,7930.98,active
+30,1,SKU-0030,Prime T-Shirt 030,5786.02,7051.18,active
+31,2,SKU-0031,Eco Notebook 031,34634.16,44553.38,active
+32,2,SKU-0032,Ultra Backpack 032,19528.69,25348.23,active
+33,2,SKU-0033,Classic Shoes 033,29512.39,39008.3,active
+34,2,SKU-0034,Pro Smartwatch 034,8078.36,9115.19,active
+35,2,SKU-0035,Max Speaker 035,11095.62,13199.49,active
+36,2,SKU-0036,Lite Power Bank 036,7447.52,10167.03,active
+37,2,SKU-0037,Plus Camera 037,30682.76,36875.04,active
+38,2,SKU-0038,Prime Vacuum Cleaner 038,22967.92,28086.65,active
+39,2,SKU-0039,Eco Desk Lamp 039,32016.0,39677.48,active
+40,2,SKU-0040,Ultra Charger 040,9329.62,11047.42,active
+41,2,SKU-0041,Classic Phone 041,19682.98,23389.54,active
+42,2,SKU-0042,Pro Laptop 042,20493.74,27736.92,active
+43,2,SKU-0043,Max Headphones 043,14027.07,16510.19,active
+44,2,SKU-0044,Lite Keyboard 044,34914.01,43728.99,active
+45,2,SKU-0045,Plus Mouse 045,3254.56,3684.98,active
+46,2,SKU-0046,Prime Monitor 046,3908.95,5015.71,active
+47,2,SKU-0047,Eco Blender 047,27739.41,34112.86,active
+48,2,SKU-0048,Ultra Rice Pack 048,2298.39,2802.25,active
+49,2,SKU-0049,Classic Shampoo 049,34864.56,43844.62,active
+50,2,SKU-0050,Pro T-Shirt 050,33990.06,45675.94,active
+51,2,SKU-0051,Max Notebook 051,480.92,628.75,active
+52,2,SKU-0052,Lite Backpack 052,23885.33,30086.26,active
+53,2,SKU-0053,Plus Shoes 053,9397.54,12091.35,active
+54,2,SKU-0054,Prime Smartwatch 054,3975.4,4901.82,active
+55,2,SKU-0055,Eco Speaker 055,15924.03,21783.95,active
+56,2,SKU-0056,Ultra Power Bank 056,30664.78,36444.51,active
+57,2,SKU-0057,Classic Camera 057,17560.47,20483.4,active
+58,2,SKU-0058,Pro Vacuum Cleaner 058,31948.96,43014.0,active
+59,2,SKU-0059,Max Desk Lamp 059,10501.69,13506.51,active
+60,2,SKU-0060,Lite Charger 060,21345.24,24754.89,active
+61,3,SKU-0061,Plus Phone 061,26706.88,33657.04,active
+62,3,SKU-0062,Prime Laptop 062,27269.64,34302.26,active
+63,3,SKU-0063,Eco Headphones 063,99.97,120.39,active
+64,3,SKU-0064,Ultra Keyboard 064,760.13,1034.97,active
+65,3,SKU-0065,Classic Mouse 065,30764.97,41109.17,active
+66,3,SKU-0066,Pro Monitor 066,10818.39,12279.53,active
+67,3,SKU-0067,Max Blender 067,30740.1,41997.34,active
+68,3,SKU-0068,Lite Rice Pack 068,3071.02,3827.59,active
+69,3,SKU-0069,Plus Shampoo 069,2496.9,3290.31,active
+70,3,SKU-0070,Prime T-Shirt 070,26822.94,30937.09,active
+71,3,SKU-0071,Eco Notebook 071,16676.86,21062.02,active
+72,3,SKU-0072,Ultra Backpack 072,9335.78,12573.73,active
+73,3,SKU-0073,Classic Shoes 073,14855.98,17456.78,active
+74,3,SKU-0074,Pro Smartwatch 074,18912.22,24770.89,active
+75,3,SKU-0075,Max Speaker 075,7104.2,8532.47,active
+76,3,SKU-0076,Lite Power Bank 076,34830.62,44895.56,active
+77,3,SKU-0077,Plus Camera 077,15378.45,19293.34,active
+78,3,SKU-0078,Prime Vacuum Cleaner 078,4305.47,5073.66,active
+79,3,SKU-0079,Eco Desk Lamp 079,11885.95,15130.34,active
+80,3,SKU-0080,Ultra Charger 080,8115.61,9554.15,active
+81,3,SKU-0081,Classic Phone 081,2559.08,3286.08,active
+82,3,SKU-0082,Pro Laptop 082,8074.65,10944.45,active
+83,3,SKU-0083,Max Headphones 083,30098.47,34264.79,active
+84,3,SKU-0084,Lite Keyboard 084,8391.12,10857.56,active
+85,3,SKU-0085,Plus Mouse 085,7561.15,8728.6,active
+86,3,SKU-0086,Prime Monitor 086,32748.16,41540.1,active
+87,3,SKU-0087,Eco Blender 087,16585.67,21959.44,active
+88,3,SKU-0088,Ultra Rice Pack 088,28277.8,33071.07,active
+89,3,SKU-0089,Classic Shampoo 089,3464.82,4268.91,active
+90,3,SKU-0090,Pro T-Shirt 090,14871.37,18461.71,active
+91,4,SKU-0091,Max Notebook 091,25539.33,33075.34,active
+92,4,SKU-0092,Lite Backpack 092,34447.05,39462.15,active
+93,4,SKU-0093,Plus Shoes 093,14139.54,17083.66,active
+94,4,SKU-0094,Prime Smartwatch 094,30169.6,35740.44,active
+95,4,SKU-0095,Eco Speaker 095,6722.1,8312.81,active
+96,4,SKU-0096,Ultra Power Bank 096,14812.11,17662.28,active
+97,4,SKU-0097,Classic Camera 097,8803.24,11972.84,active
+98,4,SKU-0098,Pro Vacuum Cleaner 098,15554.13,20903.98,active
+99,4,SKU-0099,Max Desk Lamp 099,19297.36,21866.86,active
+100,4,SKU-0100,Lite Charger 100,34974.94,46774.34,active
+101,4,SKU-0101,Plus Phone 101,33917.35,46156.61,active
+102,4,SKU-0102,Prime Laptop 102,29716.46,34567.4,active
+103,4,SKU-0103,Eco Headphones 103,17038.59,20030.13,active
+104,4,SKU-0104,Ultra Keyboard 104,14084.33,15989.17,active
+105,4,SKU-0105,Classic Mouse 105,13313.74,18322.11,active
+106,4,SKU-0106,Pro Monitor 106,9340.89,12366.02,active
+107,4,SKU-0107,Max Blender 107,15968.89,19641.45,active
+108,4,SKU-0108,Lite Rice Pack 108,33509.53,46203.27,active
+109,4,SKU-0109,Plus Shampoo 109,19487.43,25465.9,active
+110,4,SKU-0110,Prime T-Shirt 110,5485.51,6566.95,active
+111,4,SKU-0111,Eco Notebook 111,33907.33,43082.21,active
+112,4,SKU-0112,Ultra Backpack 112,19013.46,24992.69,active
+113,4,SKU-0113,Classic Shoes 113,2076.21,2640.7,active
+114,4,SKU-0114,Pro Smartwatch 114,17639.54,23667.1,active
+115,4,SKU-0115,Max Speaker 115,5577.55,7640.14,active
+116,4,SKU-0116,Lite Power Bank 116,2877.49,3361.81,active
+117,4,SKU-0117,Plus Camera 117,20858.63,27023.51,active
+118,4,SKU-0118,Prime Vacuum Cleaner 118,8293.32,9547.03,active
+119,4,SKU-0119,Eco Desk Lamp 119,31168.83,36904.39,active
+120,4,SKU-0120,Ultra Charger 120,20840.61,26697.64,active
+121,5,SKU-0121,Classic Phone 121,14719.33,18719.38,active
+122,5,SKU-0122,Pro Laptop 122,18335.57,24991.82,active
+123,5,SKU-0123,Max Headphones 123,7212.73,9421.34,active
+124,5,SKU-0124,Lite Keyboard 124,8414.91,10290.63,active
+125,5,SKU-0125,Plus Mouse 125,23535.42,28195.42,active
+126,5,SKU-0126,Prime Monitor 126,11120.91,14629.39,active
+127,5,SKU-0127,Eco Blender 127,2613.21,3238.17,active
+128,5,SKU-0128,Ultra Rice Pack 128,34946.03,48190.05,active
+129,5,SKU-0129,Classic Shampoo 129,2638.26,3101.06,active
+130,5,SKU-0130,Pro T-Shirt 130,9340.8,12728.22,active
+131,5,SKU-0131,Max Notebook 131,30839.78,41590.84,active
+132,5,SKU-0132,Lite Backpack 132,12983.89,15074.48,active
+133,5,SKU-0133,Plus Shoes 133,29194.37,38037.94,active
+134,5,SKU-0134,Prime Smartwatch 134,21439.79,29515.74,active
+135,5,SKU-0135,Eco Speaker 135,22916.85,25713.49,active
+136,5,SKU-0136,Ultra Power Bank 136,28613.28,34274.09,active
+137,5,SKU-0137,Classic Camera 137,23245.53,31709.73,active
+138,5,SKU-0138,Pro Vacuum Cleaner 138,4769.45,5484.92,active
+139,5,SKU-0139,Max Desk Lamp 139,3817.7,4824.95,active
+140,5,SKU-0140,Lite Charger 140,9590.4,12249.39,active
+141,5,SKU-0141,Plus Phone 141,25139.02,29486.44,active
+142,5,SKU-0142,Prime Laptop 142,22227.59,26420.51,active
+143,5,SKU-0143,Eco Headphones 143,17139.53,23230.7,active
+144,5,SKU-0144,Ultra Keyboard 144,29625.94,33892.0,active
+145,5,SKU-0145,Classic Mouse 145,14871.27,17725.61,active
+146,5,SKU-0146,Pro Monitor 146,203.82,269.14,active
+147,5,SKU-0147,Max Blender 147,22328.0,26528.08,active
+148,5,SKU-0148,Lite Rice Pack 148,25963.78,32803.6,active
+149,5,SKU-0149,Plus Shampoo 149,15014.83,16854.36,active
+150,5,SKU-0150,Prime T-Shirt 150,2707.52,3654.09,active
+151,6,SKU-0151,Eco Notebook 151,31645.19,39931.59,active
+152,6,SKU-0152,Ultra Backpack 152,29224.06,37157.0,active
+153,6,SKU-0153,Classic Shoes 153,5251.43,6055.61,active
+154,6,SKU-0154,Pro Smartwatch 154,10844.38,14680.42,active
+155,6,SKU-0155,Max Speaker 155,27880.59,37465.45,active
+156,6,SKU-0156,Lite Power Bank 156,31470.45,36965.82,active
+157,6,SKU-0157,Plus Camera 157,8793.58,10083.83,active
+158,6,SKU-0158,Prime Vacuum Cleaner 158,27321.66,36880.83,active
+159,6,SKU-0159,Eco Desk Lamp 159,14270.7,18286.08,active
+160,6,SKU-0160,Ultra Charger 160,5477.0,7458.41,active
+161,6,SKU-0161,Classic Phone 161,30272.03,41588.13,active
+162,6,SKU-0162,Pro Laptop 162,28392.15,38305.79,active
+163,6,SKU-0163,Max Headphones 163,945.54,1240.08,active
+164,6,SKU-0164,Lite Keyboard 164,11679.92,15908.19,active
+165,6,SKU-0165,Plus Mouse 165,28094.05,37776.85,active
+166,6,SKU-0166,Prime Monitor 166,28391.37,33767.83,active
+167,6,SKU-0167,Eco Blender 167,27575.12,31659.13,active
+168,6,SKU-0168,Ultra Rice Pack 168,30536.06,41017.08,active
+169,6,SKU-0169,Classic Shampoo 169,7847.39,10455.18,active
+170,6,SKU-0170,Pro T-Shirt 170,16153.79,19374.04,active
+171,6,SKU-0171,Max Notebook 171,27853.46,32844.1,active
+172,6,SKU-0172,Lite Backpack 172,906.36,1060.63,active
+173,6,SKU-0173,Plus Shoes 173,11542.91,15522.12,active
+174,6,SKU-0174,Prime Smartwatch 174,33843.77,40361.15,active
+175,6,SKU-0175,Eco Speaker 175,22480.54,27514.3,active
+176,6,SKU-0176,Ultra Power Bank 176,34341.75,43250.55,active
+177,6,SKU-0177,Classic Camera 177,32878.16,37809.52,active
+178,6,SKU-0178,Pro Vacuum Cleaner 178,33966.39,39619.34,active
+179,6,SKU-0179,Max Desk Lamp 179,33691.7,40060.15,active
+180,6,SKU-0180,Lite Charger 180,3865.42,4766.01,active
+181,7,SKU-0181,Plus Phone 181,25520.79,30664.66,active
+182,7,SKU-0182,Prime Laptop 182,21248.81,26624.12,active
+183,7,SKU-0183,Eco Headphones 183,13531.02,17183.22,active
+184,7,SKU-0184,Ultra Keyboard 184,8974.91,11705.83,active
+185,7,SKU-0185,Classic Mouse 185,139.06,189.21,active
+186,7,SKU-0186,Pro Monitor 186,18882.74,24680.72,active
+187,7,SKU-0187,Max Blender 187,25988.9,33639.08,active
+188,7,SKU-0188,Lite Rice Pack 188,12798.61,14567.29,active
+189,7,SKU-0189,Plus Shampoo 189,23275.18,28066.42,active
+190,7,SKU-0190,Prime T-Shirt 190,11041.93,14801.53,active
+191,7,SKU-0191,Eco Notebook 191,25213.82,30208.27,active
+192,7,SKU-0192,Ultra Backpack 192,10880.22,13341.13,active
+193,7,SKU-0193,Classic Shoes 193,14131.82,16913.96,active
+194,7,SKU-0194,Pro Smartwatch 194,4524.89,5562.52,active
+195,7,SKU-0195,Max Speaker 195,32917.5,42664.46,active
+196,7,SKU-0196,Lite Power Bank 196,31605.97,40456.71,active
+197,7,SKU-0197,Plus Camera 197,10589.17,13368.44,active
+198,7,SKU-0198,Prime Vacuum Cleaner 198,94.18,112.51,active
+199,7,SKU-0199,Eco Desk Lamp 199,15091.69,19178.46,active
+200,7,SKU-0200,Ultra Charger 200,22942.32,28469.05,active
+201,7,SKU-0201,Classic Phone 201,15520.22,18244.99,active
+202,7,SKU-0202,Pro Laptop 202,16603.66,22486.45,active
+203,7,SKU-0203,Max Headphones 203,27877.18,32452.38,active
+204,7,SKU-0204,Lite Keyboard 204,3041.06,3813.54,active
+205,7,SKU-0205,Plus Mouse 205,22182.29,26777.33,active
+206,7,SKU-0206,Prime Monitor 206,28659.35,37695.53,active
+207,7,SKU-0207,Eco Blender 207,23574.02,27779.78,active
+208,7,SKU-0208,Ultra Rice Pack 208,7033.62,7922.32,active
+209,7,SKU-0209,Classic Shampoo 209,8629.9,10731.59,active
+210,7,SKU-0210,Pro T-Shirt 210,29752.84,33886.56,active
+211,8,SKU-0211,Max Notebook 211,14552.28,18681.33,active
+212,8,SKU-0212,Lite Backpack 212,6869.68,8937.81,active
+213,8,SKU-0213,Plus Shoes 213,17343.65,20525.1,active
+214,8,SKU-0214,Prime Smartwatch 214,22989.55,25781.44,active
+215,8,SKU-0215,Eco Speaker 215,26303.68,34726.43,active
+216,8,SKU-0216,Ultra Power Bank 216,3802.03,4678.54,active
+217,8,SKU-0217,Classic Camera 217,6221.96,8518.31,active
+218,8,SKU-0218,Pro Vacuum Cleaner 218,18167.08,20584.33,active
+219,8,SKU-0219,Max Desk Lamp 219,8782.0,11772.86,active
+220,8,SKU-0220,Lite Charger 220,16019.65,21280.0,active
+221,8,SKU-0221,Plus Phone 221,23391.81,32207.06,active
+222,8,SKU-0222,Prime Laptop 222,20873.19,28533.87,active
+223,8,SKU-0223,Eco Headphones 223,31208.59,39924.82,active
+224,8,SKU-0224,Ultra Keyboard 224,25197.05,31527.62,active
+225,8,SKU-0225,Classic Mouse 225,29083.48,36716.34,active
+226,8,SKU-0226,Pro Monitor 226,31410.51,41253.01,active
+227,8,SKU-0227,Max Blender 227,16655.63,19776.73,active
+228,8,SKU-0228,Lite Rice Pack 228,8713.61,11203.89,active
+229,8,SKU-0229,Plus Shampoo 229,26822.21,33676.3,active
+230,8,SKU-0230,Prime T-Shirt 230,21966.06,26170.26,active
+231,8,SKU-0231,Eco Notebook 231,2785.72,3326.96,active
+232,8,SKU-0232,Ultra Backpack 232,9568.29,11511.84,active
+233,8,SKU-0233,Classic Shoes 233,18942.12,21896.66,active
+234,8,SKU-0234,Pro Smartwatch 234,8155.65,10605.83,active
+235,8,SKU-0235,Max Speaker 235,24748.16,28131.22,active
+236,8,SKU-0236,Lite Power Bank 236,14313.37,18050.29,active
+237,8,SKU-0237,Plus Camera 237,14598.84,17135.78,active
+238,8,SKU-0238,Prime Vacuum Cleaner 238,14751.41,19991.97,active
+239,8,SKU-0239,Eco Desk Lamp 239,20476.05,26635.98,active
+240,8,SKU-0240,Ultra Charger 240,29997.08,39567.79,active

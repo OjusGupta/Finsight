@@ -1,0 +1,6 @@
+store_id,company_id,store_code,store_name,city,state,status
+1,1,STR001,Bhopal Central,Bhopal,Madhya Pradesh,active
+2,1,STR002,Delhi Metro,New Delhi,Delhi,active
+3,1,STR003,Lucknow Hazratganj,Lucknow,Uttar Pradesh,active
+4,1,STR004,Kanpur Mall,Kanpur,Uttar Pradesh,active
+5,1,STR005,Indore Central,Indore,Madhya Pradesh,active

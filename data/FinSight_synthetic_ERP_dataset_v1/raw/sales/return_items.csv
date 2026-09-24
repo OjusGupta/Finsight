@@ -1,0 +1,351 @@
+return_item_id,return_id,product_id,quantity,refund_amount,reason
+1,1,212,2,16393.6,Size issue
+2,2,37,1,33380.47,Damaged
+3,3,39,1,35458.04,Defective
+4,4,121,2,34073.18,Damaged
+5,5,176,1,39405.96,Defective
+6,6,106,1,12189.5,Size issue
+7,7,58,2,73693.94,Customer changed mind
+8,8,196,2,74603.56,Defective
+9,9,164,1,14277.68,Size issue
+10,10,169,1,10008.94,Size issue
+11,11,103,1,18493.58,Customer changed mind
+12,12,151,1,39063.0,Wrong product
+13,13,184,1,10413.95,Damaged
+14,14,190,4,54170.67,Damaged
+15,15,232,2,20387.0,Wrong product
+16,16,201,1,17341.34,Wrong product
+17,17,105,2,35127.56,Wrong product
+18,18,182,2,49539.9,Defective
+19,19,107,1,18151.42,Size issue
+20,20,164,4,58657.46,Wrong product
+21,21,109,1,25457.89,Customer changed mind
+22,22,52,2,58373.47,Wrong product
+23,23,113,1,2576.94,Size issue
+24,24,58,1,42917.66,Size issue
+25,25,119,2,64781.59,Size issue
+26,26,41,1,20675.37,Size issue
+27,27,192,1,13255.46,Size issue
+28,28,113,2,5105.82,Customer changed mind
+29,29,82,4,38795.76,Defective
+30,30,179,1,37699.23,Wrong product
+31,31,187,1,32087.14,Size issue
+32,32,63,1,112.45,Size issue
+33,33,21,2,50007.69,Customer changed mind
+34,34,72,3,35274.11,Wrong product
+35,35,156,1,34532.64,Customer changed mind
+36,36,79,1,14899.96,Wrong product
+37,37,223,3,111261.53,Size issue
+38,38,194,2,10706.5,Size issue
+39,39,161,2,76112.44,Size issue
+40,40,41,1,23307.11,Customer changed mind
+41,41,27,1,12567.65,Wrong product
+42,42,228,1,10789.74,Size issue
+43,43,58,2,83456.65,Size issue
+44,44,49,1,39124.79,Wrong product
+45,45,203,1,27615.58,Defective
+46,46,108,1,40264.08,Damaged
+47,47,48,1,2617.36,Size issue
+48,48,205,1,26148.46,Wrong product
+49,49,11,2,71613.13,Wrong product
+50,50,216,3,13290.58,Wrong product
+51,51,170,3,49450.7,Damaged
+52,52,115,3,22853.49,Damaged
+53,53,220,1,19471.8,Damaged
+54,54,49,1,38737.48,Defective
+55,55,113,1,2480.01,Size issue
+56,56,134,3,85262.71,Wrong product
+57,57,48,1,2552.42,Size issue
+58,58,29,2,14400.3,Size issue
+59,59,178,1,36711.8,Defective
+60,60,66,3,33048.91,Wrong product
+61,61,239,1,25165.43,Size issue
+62,62,106,1,11331.04,Defective
+63,63,220,3,61615.05,Customer changed mind
+64,64,143,1,21456.17,Customer changed mind
+65,65,141,2,52190.55,Wrong product
+66,66,175,1,26447.75,Damaged
+67,67,6,3,25353.85,Wrong product
+68,68,238,1,17096.69,Damaged
+69,69,107,1,18481.89,Defective
+70,70,134,1,29285.9,Damaged
+71,71,144,2,65268.57,Damaged
+72,72,128,2,96200.53,Wrong product
+73,73,145,4,66978.19,Size issue
+74,74,105,1,17035.89,Defective
+75,75,105,1,16296.61,Defective
+76,76,151,1,37486.11,Size issue
+77,77,207,1,26021.01,Damaged
+78,78,196,1,37323.74,Damaged
+79,79,123,1,9324.52,Customer changed mind
+80,80,114,3,68326.79,Defective
+81,81,212,1,7713.07,Customer changed mind
+82,82,83,1,30582.98,Wrong product
+83,83,43,1,15621.98,Defective
+84,84,148,2,59914.43,Defective
+85,85,77,1,16816.73,Wrong product
+86,86,188,1,14461.33,Wrong product
+87,87,145,1,15836.88,Wrong product
+88,88,80,1,8373.41,Size issue
+89,89,109,4,99788.53,Damaged
+90,90,186,1,21997.79,Damaged
+91,91,143,1,20401.59,Customer changed mind
+92,92,133,3,110500.86,Wrong product
+93,93,228,2,19074.36,Size issue
+94,94,73,2,32448.82,Wrong product
+95,95,127,1,2884.89,Size issue
+96,96,201,1,16651.27,Damaged
+97,97,55,1,20388.85,Wrong product
+98,98,200,1,27731.62,Customer changed mind
+99,99,237,2,32828.78,Customer changed mind
+100,100,132,1,12970.62,Wrong product
+101,101,206,2,72915.6,Damaged
+102,102,127,4,12834.74,Size issue
+103,103,211,1,16544.9,Wrong product
+104,104,211,2,32649.97,Size issue
+105,105,161,1,40812.06,Customer changed mind
+106,106,233,1,19886.42,Defective
+107,107,10,1,28038.99,Customer changed mind
+108,108,220,1,20579.3,Damaged
+109,109,233,1,20343.82,Defective
+110,110,90,1,16331.81,Customer changed mind
+111,111,115,1,6786.72,Size issue
+112,112,220,2,39679.99,Damaged
+113,113,176,1,41453.66,Customer changed mind
+114,114,112,3,70635.53,Size issue
+115,115,26,3,39387.22,Damaged
+116,116,1,4,96716.44,Damaged
+117,117,216,1,4575.77,Size issue
+118,118,25,1,26169.99,Customer changed mind
+119,119,198,1,103.13,Customer changed mind
+120,120,75,1,7766.99,Defective
+121,121,184,3,31007.96,Size issue
+122,122,95,2,15920.13,Defective
+123,123,43,1,14628.84,Wrong product
+124,124,227,1,16899.19,Customer changed mind
+125,125,204,2,6512.81,Customer changed mind
+126,126,28,2,55785.74,Defective
+127,127,181,1,28928.94,Defective
+128,128,216,1,4516.72,Damaged
+129,129,197,1,13270.98,Size issue
+130,130,115,1,6850.96,Defective
+131,131,2,1,10360.76,Defective
+132,132,73,1,17229.98,Customer changed mind
+133,133,2,4,40129.52,Wrong product
+134,134,17,3,73207.56,Customer changed mind
+135,135,234,1,9779.82,Wrong product
+136,136,85,1,8616.92,Wrong product
+137,137,78,1,4655.05,Defective
+138,138,182,1,24341.87,Wrong product
+139,139,109,2,44514.4,Wrong product
+140,140,188,1,14204.52,Wrong product
+141,141,46,2,9885.07,Size issue
+142,142,141,1,25086.36,Damaged
+143,143,107,2,37987.25,Customer changed mind
+144,144,172,1,987.92,Size issue
+145,145,204,1,3536.84,Damaged
+146,146,232,3,30379.13,Damaged
+147,147,91,2,63148.23,Defective
+148,148,211,1,17362.58,Size issue
+149,149,214,1,23377.17,Customer changed mind
+150,150,66,3,35467.81,Customer changed mind
+151,151,108,3,138306.42,Damaged
+152,152,73,1,15289.62,Damaged
+153,153,136,1,34247.95,Defective
+154,154,28,1,25868.66,Wrong product
+155,155,116,1,3283.12,Defective
+156,156,108,1,45926.5,Wrong product
+157,157,34,1,8924.28,Wrong product
+158,158,201,1,17178.99,Wrong product
+159,159,57,3,54229.92,Customer changed mind
+160,160,238,1,18766.57,Wrong product
+161,161,160,4,28855.94,Customer changed mind
+162,162,177,2,73710.36,Customer changed mind
+163,163,87,2,39380.53,Damaged
+164,164,121,2,35215.02,Damaged
+165,165,1,1,24479.84,Defective
+166,166,226,1,37599.84,Customer changed mind
+167,167,26,1,13169.54,Customer changed mind
+168,168,186,1,21955.33,Customer changed mind
+169,169,74,1,21348.96,Damaged
+170,170,97,1,10187.75,Size issue
+171,171,26,1,14090.38,Customer changed mind
+172,172,154,2,26574.89,Damaged
+173,173,67,2,83745.61,Defective
+174,174,10,2,58176.99,Wrong product
+175,175,77,1,16750.03,Damaged
+176,176,150,3,10302.55,Damaged
+177,177,126,3,40543.49,Wrong product
+178,178,128,1,41058.42,Wrong product
+179,179,152,2,68835.88,Size issue
+180,180,127,1,2963.25,Size issue
+181,181,112,4,94263.27,Wrong product
+182,182,165,1,32960.53,Size issue
+183,183,218,1,19738.21,Wrong product
+184,184,1,2,43398.13,Damaged
+185,185,214,1,23878.79,Wrong product
+186,186,40,1,10094.73,Size issue
+187,187,183,1,15182.06,Defective
+188,188,192,4,45641.39,Customer changed mind
+189,189,120,1,23506.97,Size issue
+190,190,21,1,26826.19,Wrong product
+191,191,36,1,9160.9,Customer changed mind
+192,192,229,2,63837.81,Defective
+193,193,9,2,18260.3,Defective
+194,194,233,1,21859.75,Size issue
+195,195,187,1,32736.62,Wrong product
+196,196,131,1,38314.65,Damaged
+197,197,169,1,9132.19,Size issue
+198,198,228,1,10398.43,Wrong product
+199,199,112,1,21734.9,Customer changed mind
+200,200,224,1,31232.14,Customer changed mind
+201,201,80,2,17359.39,Size issue
+202,202,161,1,36139.05,Defective
+203,203,67,2,80268.08,Defective
+204,204,1,2,48044.51,Damaged
+205,205,7,1,1081.45,Defective
+206,206,77,4,65893.85,Damaged
+207,207,55,1,21001.55,Customer changed mind
+208,208,26,1,14221.85,Customer changed mind
+209,209,234,1,10151.31,Size issue
+210,210,189,2,50719.18,Wrong product
+211,211,18,1,15939.33,Size issue
+212,212,179,1,37129.28,Customer changed mind
+213,213,6,1,8539.92,Defective
+214,214,236,2,31638.62,Size issue
+215,215,39,3,107029.97,Damaged
+216,216,218,2,39026.41,Damaged
+217,217,204,1,3326.07,Damaged
+218,218,170,1,16770.86,Size issue
+219,219,185,1,186.61,Customer changed mind
+220,220,186,1,21396.59,Wrong product
+221,221,140,2,21088.35,Wrong product
+222,222,75,1,7396.63,Damaged
+223,223,200,3,81098.64,Size issue
+224,224,66,3,35111.02,Damaged
+225,225,57,1,18395.71,Defective
+226,226,26,1,13191.22,Wrong product
+227,227,208,1,7157.97,Wrong product
+228,228,155,2,72187.3,Wrong product
+229,229,109,4,92043.27,Wrong product
+230,230,217,3,24875.68,Defective
+231,231,119,1,35014.3,Size issue
+232,232,4,2,66205.64,Customer changed mind
+233,233,121,1,16665.86,Size issue
+234,234,137,3,92612.02,Defective
+235,235,24,2,7378.23,Defective
+236,236,101,3,132018.62,Customer changed mind
+237,237,26,2,26752.58,Defective
+238,238,187,3,86977.72,Wrong product
+239,239,11,4,138643.76,Wrong product
+240,240,19,1,33485.76,Defective
+241,241,133,3,107062.83,Defective
+242,242,66,3,35147.92,Defective
+243,243,138,2,10536.8,Damaged
+244,244,56,1,34011.86,Size issue
+245,245,93,2,30831.09,Defective
+246,246,56,1,33085.62,Wrong product
+247,247,145,1,16212.5,Damaged
+248,248,141,1,28243.25,Customer changed mind
+249,249,59,4,48887.31,Damaged
+250,250,235,1,24153.04,Size issue
+251,251,182,3,68401.99,Damaged
+252,252,160,2,13291.4,Wrong product
+253,253,238,2,34251.86,Defective
+254,254,120,1,24789.26,Defective
+255,255,182,1,23936.3,Size issue
+256,256,218,3,53004.95,Defective
+257,257,217,1,7584.45,Wrong product
+258,258,80,1,8540.47,Damaged
+259,259,86,1,39685.31,Damaged
+260,260,43,2,31252.52,Defective
+261,261,210,3,95554.53,Defective
+262,262,43,1,15275.67,Wrong product
+263,263,235,4,106246.66,Defective
+264,264,96,1,16181.12,Customer changed mind
+265,265,8,1,27187.71,Size issue
+266,266,145,3,52620.92,Damaged
+267,267,73,2,31534.91,Customer changed mind
+268,268,202,1,19181.24,Damaged
+269,269,227,1,16847.56,Wrong product
+270,270,223,1,35380.48,Wrong product
+271,271,41,1,22427.88,Wrong product
+272,272,218,2,37839.85,Size issue
+273,273,150,1,3255.72,Size issue
+274,274,61,3,86627.48,Size issue
+275,275,148,2,56854.62,Defective
+276,276,166,1,28832.82,Size issue
+277,277,6,1,8714.51,Size issue
+278,278,182,1,24198.53,Customer changed mind
+279,279,121,2,31992.17,Customer changed mind
+280,280,134,1,25266.68,Customer changed mind
+281,281,99,1,21418.0,Defective
+282,282,104,1,14666.66,Wrong product
+283,283,165,1,37222.51,Size issue
+284,284,15,2,65610.29,Defective
+285,285,183,2,30129.98,Damaged
+286,286,224,3,83186.02,Wrong product
+287,287,163,1,1062.64,Customer changed mind
+288,288,48,1,2446.55,Damaged
+289,289,118,2,17969.13,Wrong product
+290,290,118,1,8233.35,Defective
+291,291,123,4,33014.92,Size issue
+292,292,5,1,14599.46,Wrong product
+293,293,185,3,554.38,Customer changed mind
+294,294,216,3,12386.54,Wrong product
+295,295,153,1,5726.79,Defective
+296,296,186,1,22519.54,Defective
+297,297,218,3,54186.14,Damaged
+298,298,180,1,4101.74,Size issue
+299,299,197,1,11471.17,Wrong product
+300,300,130,1,11205.42,Wrong product
+301,301,28,2,52019.99,Damaged
+302,302,19,1,34390.11,Wrong product
+303,303,98,1,18811.18,Wrong product
+304,304,236,2,32122.17,Defective
+305,305,225,1,31342.61,Defective
+306,306,13,1,39703.2,Damaged
+307,307,120,1,23302.35,Size issue
+308,308,184,2,21203.71,Customer changed mind
+309,309,232,1,11504.43,Size issue
+310,310,197,1,13298.31,Customer changed mind
+311,311,33,1,34373.61,Size issue
+312,312,30,1,6960.06,Damaged
+313,313,194,1,5051.79,Wrong product
+314,314,176,2,82782.68,Damaged
+315,315,43,1,15868.55,Customer changed mind
+316,316,47,1,31382.18,Customer changed mind
+317,317,125,1,28169.33,Size issue
+318,318,137,2,58062.64,Size issue
+319,319,186,3,68058.05,Size issue
+320,320,28,3,84077.69,Defective
+321,321,131,4,152215.55,Wrong product
+322,322,146,1,235.47,Damaged
+323,323,226,3,117714.03,Defective
+324,324,165,1,32449.55,Size issue
+325,325,186,2,47859.36,Customer changed mind
+326,326,14,3,11107.53,Size issue
+327,327,20,1,33724.66,Defective
+328,328,167,2,62129.89,Defective
+329,329,83,1,32022.62,Customer changed mind
+330,330,21,1,25294.29,Wrong product
+331,331,112,1,22944.3,Size issue
+332,332,15,3,113418.61,Damaged
+333,333,83,3,90552.23,Size issue
+334,334,27,1,12636.25,Wrong product
+335,335,224,4,121820.39,Wrong product
+336,336,209,2,20408.51,Size issue
+337,337,56,3,104062.16,Customer changed mind
+338,338,119,2,69914.95,Damaged
+339,339,126,1,12679.69,Damaged
+340,340,87,3,65495.33,Size issue
+341,341,221,1,30598.27,Customer changed mind
+342,342,45,3,10233.06,Customer changed mind
+343,343,47,1,31544.85,Customer changed mind
+344,344,236,3,46453.18,Defective
+345,345,185,2,334.02,Damaged
+346,346,32,1,22367.53,Damaged
+347,347,214,1,24894.38,Defective
+348,348,42,3,73998.9,Size issue
+349,349,113,1,2391.81,Customer changed mind
+350,350,131,2,73214.0,Defective
