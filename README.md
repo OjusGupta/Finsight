@@ -41,24 +41,21 @@ LLMs in FinSight are **not** the source of truth for financial numbers. They que
 
 ```mermaid
 flowchart TD
-    A[ERP / Synthetic ERP Data] --> B[Data Cleaning & Validation]
-    B --> C[PostgreSQL — finsight]
+    A[ERP / Synthetic ERP Data] --> B[Data Cleaning and Validation]
+    B --> C[PostgreSQL finsight]
     C --> D[Analytics Data Products]
     D --> E[Deterministic Anomaly Detection]
     C --> F[Finance Reconciliation Engine]
-    F --> G[Accounting Posting & Idempotency]
-    G --> H[Finance Analytics & Anomaly Integration]
-
-    H --> I[FastAPI Backend]:::planned
-    I --> J[LangGraph Agents + Tools]:::planned
-    J --> K[RAG — Policy Knowledge Base]:::planned
-    K --> L[AI Insights & Action Items]:::planned
-    L --> M[Streamlit Dashboard]:::planned
-
-    classDef planned stroke-dasharray:5 5
+    F --> G[Accounting Posting and Idempotency]
+    G --> H[Finance Analytics and Anomaly Integration]
+    H --> I[FastAPI Backend — Planned]
+    I --> J[LangGraph Agents and Tools — Planned]
+    J --> K[RAG Policy Knowledge Base — Planned]
+    K --> L[AI Insights and Action Items — Planned]
+    L --> M[Streamlit Dashboard — Planned]
 ```
 
-> Solid nodes are **implemented**. Dashed nodes are **planned**.
+> Nodes without "Planned" label are **implemented**. Nodes labelled "Planned" are upcoming phases.
 
 ---
 
@@ -91,9 +88,12 @@ flowchart TD
     B --> D[Sales Analytics Agent]
     B --> E[Inventory Agent]
     B --> F[Anomaly Investigation Agent]
-    C & D & E & F --> G[Tool — Query PostgreSQL]
+    C --> G[Tool: Query PostgreSQL]
+    D --> G
+    E --> G
+    F --> G
     G --> H[Verified Result]
-    H --> I[RAG — Policy Context]
+    H --> I[RAG Policy Context]
     I --> J[Grounded Response]
     J --> K[Action Item]
 ```
