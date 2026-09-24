@@ -8,7 +8,7 @@ Retail teams often have sales, inventory, customer, payment, return, and expense
 
 ## Current Status
 
-The dataset and PostgreSQL loading work are the most concrete parts of the repository. The supplied loaded-dataset counts and data-product validations are documented in [docs/08_verification_and_validation.md](docs/08_verification_and_validation.md). Backend, frontend, and AI entry-point files exist, but several are currently empty; those layers are documented as planned unless repository code proves otherwise.
+The dataset, PostgreSQL loading work, ERP finance adapter, and deterministic finance reconciliation engine are the most concrete parts of the repository. The current live integration reconciles 4,854 completed sales. The 350 approved returns are extracted and preserved but remain blocked because return-level tax fields are not available. Backend, frontend, and AI entry-point files exist, but several are currently empty; those layers remain planned.
 
 ## Architecture
 
@@ -39,7 +39,7 @@ Deterministic SQL and Python should calculate financial and inventory numbers. L
 - LangGraph as the planned agent workflow framework
 - RAG (retrieval-augmented generation) for business-policy context
 
-The repository currently contains `psycopg2`-based loader code. `requirements.txt` is empty, so the complete installed dependency list is **To be verified**.
+The repository currently contains `psycopg2`-based loader and read-only adapter code. `requirements.txt` currently lists `pandas` and `psycopg2-binary`; future application dependencies remain **To be verified**.
 
 ## Repository Layout
 
@@ -73,7 +73,7 @@ The database is named `finsight`. Core operational entities include companies, s
 
 ## Running Later
 
-The repository contains loader scripts, but there is no verified single end-to-end command because `requirements.txt`, `scripts/run_pipeline.py`, `backend/app/main.py`, and `frontend/app.py` are currently empty. Use the documented scripts only after checking the local PostgreSQL connection configuration. See [docs/07_database_loading.md](docs/07_database_loading.md).
+The repository contains loader scripts and a finance-engine CLI, but there is no verified single end-to-end ERP-to-application command because `scripts/run_pipeline.py`, `backend/app/main.py`, and `frontend/app.py` are currently empty. Use the documented scripts only after checking the local PostgreSQL connection configuration. See [docs/07_database_loading.md](docs/07_database_loading.md).
 
 ## Limitations
 
@@ -82,6 +82,24 @@ The repository contains loader scripts, but there is no verified single end-to-e
 - Historical inventory balances can be difficult to reconstruct when opening stock is absent or movements are inconsistent.
 - Source quality issues remain documented rather than silently corrected.
 - Deployment, authentication behavior, and installed dependencies are not fully verified.
+
+## Finance Reconciliation Engine
+
+FinSight includes a deterministic finance reconciliation engine and a read-only ERP adapter. The adapter reads existing sales, sale items, returns, return items, customers, stores, companies, and products without duplicating business entities. It preserves `customer_id` and source IDs, reads the verified `sale_items.tax_amount` field, and maps the source dataset tax into the engine's tax component. This field is not claimed to be legally or officially GST.
+
+The current live result is:
+
+- 4,854 completed sales reconciled.
+- 350 approved returns extracted but blocked because return-level tax fields are unavailable.
+- No accounting posting or persistence-table integration yet.
+
+Run it with:
+
+```text
+python pipeline.py --lines <csv> --customers <csv> --run-date YYYY-MM-DD [--ledger PATH] [--journal PATH] [--report PATH]
+```
+
+The engine is independent of PostgreSQL and external AI services. PostgreSQL persistence, anomaly workflows, AI agents, RAG, FastAPI, and the dashboard remain later phases.
 
 ## Roadmap
 

@@ -339,6 +339,8 @@ CREATE TABLE sale_items (
 
     discount_amount NUMERIC(12,2) NOT NULL DEFAULT 0,
 
+    tax_amount NUMERIC(12,2) NOT NULL DEFAULT 0,
+
     line_total NUMERIC(12,2) NOT NULL,
 
     CONSTRAINT fk_sale_item_sale
@@ -359,6 +361,9 @@ CREATE TABLE sale_items (
 
     CONSTRAINT chk_sale_item_discount
         CHECK (discount_amount >= 0),
+
+    CONSTRAINT chk_sale_item_tax
+        CHECK (tax_amount >= 0),
 
     CONSTRAINT chk_sale_item_total
         CHECK (line_total >= 0)
@@ -870,6 +875,8 @@ CREATE TABLE sale_items (
 
     discount_amount NUMERIC(12,2) NOT NULL DEFAULT 0,
 
+    tax_amount NUMERIC(12,2) NOT NULL DEFAULT 0,
+
     line_total NUMERIC(12,2) NOT NULL,
 
     CONSTRAINT fk_sale_item_sale
@@ -890,6 +897,9 @@ CREATE TABLE sale_items (
 
     CONSTRAINT chk_sale_item_discount
         CHECK (discount_amount >= 0),
+
+    CONSTRAINT chk_sale_item_tax
+        CHECK (tax_amount >= 0),
 
     CONSTRAINT chk_sale_item_total
         CHECK (line_total >= 0)
