@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reconciliation - FinSightAI</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <div class="sidebar-brand-icon"><i class="ph ph-chart-line-up"></i></div>
+            <div class="sidebar-brand-text">FinSightAI</div>
+        </div>
+        <div class="sidebar-nav">
+            <a href="/" class="nav-link"><i class="ph ph-squares-four nav-link-icon"></i> Dashboard</a>
+            <a href="/finance.html" class="nav-link"><i class="ph ph-currency-dollar nav-link-icon"></i> Finance</a>
+            <a href="/reconciliation.html" class="nav-link active"><i class="ph ph-check-circle nav-link-icon"></i> Reconciliation</a>
+            <a href="/ai.html" class="nav-link"><i class="ph ph-sparkle nav-link-icon"></i> FinSight AI</a>
+        </div>
+    </div>
+    
+    <div class="main-area">
+        <div class="topbar">
+            <div class="topbar-left">
+                <div class="page-title">Reconciliation</div>
+            </div>
+            <div class="topbar-right">
+                <button class="topbar-icon-btn"><i class="ph ph-bell"></i></button>
+                <div class="topbar-avatar">
+                    <div class="avatar">AU</div>
+                    <span style="font-size: 0.8125rem; font-weight: 500;">Admin User</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-content">
+            <div class="page-header">
+                <h1 class="page-title">Reconciliation Runs</h1>
+            </div>
+            
+            <div class="kpi-strip">
+                <div class="kpi-item">
+                    <div class="kpi-label"><i class="ph ph-warning-octagon"></i> Blocked Invoices</div>
+                    <div class="kpi-value text-danger" id="kpi-blocked">-</div>
+                </div>
+            </div>
+            
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Anomaly ID</th>
+                            <th>Description</th>
+                            <th>Expected Value</th>
+                            <th>Detected Value</th>
+                            <th>Severity</th>
+                        </tr>
+                    </thead>
+                    <tbody id="anomalies-table-body">
+                        <tr><td colspan="5">Loading data...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/js/api.js"></script>
+    <script>
+        async function initRecon() {
+            try {
+                const anomalies = await api.getAnomalies();
+                
+                const blocked = anomalies.filter(a => a.severity === 'HIGH' || a.severity === 'CRITICAL');
+                document.getElementById('kpi-blocked').innerText = blocked.length.toLocaleString();
+                
+                const tbody = document.getElementById('anomalies-table-body');
+                tbody.innerHTML = '';
+                
+                anomalies.slice(0, 15).forEach(a => {
+                    const row = document.createElement('tr');
+                    const sevClass = a.severity === 'CRITICAL' || a.severity === 'HIGH' ? 'text-danger' : 'text-warning';
+                    
+                    row.innerHTML = `
+                        <td>${a.anomaly_id}</td>
+                        <td>${a.description}</td>
+                        <td>${a.expected_value || '-'}</td>
+                        <td>${a.detected_value || '-'}</td>
+                        <td class="font-weight-bold ${sevClass}">${a.severity}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (err) {
+                console.error(err);
+                document.getElementById('anomalies-table-body').innerHTML = '<tr><td colspan="5" class="text-danger">Failed to load data.</td></tr>';
+            }
+        }
+        
+        initRecon();
+    </script>
+</body>
+</html>

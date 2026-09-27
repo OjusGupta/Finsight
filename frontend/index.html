@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - FinSightAI</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <div class="sidebar-brand-icon"><i class="ph ph-chart-line-up"></i></div>
+            <div class="sidebar-brand-text">FinSightAI</div>
+        </div>
+        <div class="sidebar-nav">
+            <a href="/" class="nav-link active"><i class="ph ph-squares-four nav-link-icon"></i> Dashboard</a>
+            <a href="/finance.html" class="nav-link"><i class="ph ph-currency-dollar nav-link-icon"></i> Finance</a>
+            <a href="/reconciliation.html" class="nav-link"><i class="ph ph-check-circle nav-link-icon"></i> Reconciliation</a>
+            <a href="/ai.html" class="nav-link"><i class="ph ph-sparkle nav-link-icon"></i> FinSight AI</a>
+        </div>
+    </div>
+    
+    <div class="main-area">
+        <div class="topbar">
+            <div class="topbar-left">
+                <div class="page-title">Dashboard</div>
+            </div>
+            <div class="topbar-right">
+                <button class="topbar-icon-btn"><i class="ph ph-bell"></i></button>
+                <div class="topbar-avatar">
+                    <div class="avatar">AU</div>
+                    <span style="font-size: 0.8125rem; font-weight: 500;">Admin User</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-content">
+            <div class="page-header">
+                <h1 class="page-title">Overview</h1>
+                <p class="page-subtitle">Welcome to FinSight AI Operations Dashboard</p>
+            </div>
+            
+            <div class="kpi-strip">
+                <div class="kpi-item">
+                    <div class="kpi-label"><i class="ph ph-receipt"></i> Total Sales</div>
+                    <div class="kpi-value text-success" id="kpi-sales">-</div>
+                </div>
+                <div class="kpi-item">
+                    <div class="kpi-label"><i class="ph ph-storefront"></i> Total Stores</div>
+                    <div class="kpi-value" id="kpi-stores">-</div>
+                </div>
+                <div class="kpi-item">
+                    <div class="kpi-label"><i class="ph ph-warning-circle"></i> Anomalies Detected</div>
+                    <div class="kpi-value text-danger" id="kpi-anomalies">-</div>
+                </div>
+            </div>
+            
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Metric Date</th>
+                            <th>Store ID</th>
+                            <th>Net Sales</th>
+                            <th>Total Returns</th>
+                        </tr>
+                    </thead>
+                    <tbody id="metrics-table-body">
+                        <tr><td colspan="4">Loading data...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/js/api.js"></script>
+    <script>
+        async function initDashboard() {
+            try {
+                // Fetch basic metrics
+                const [sales, stores, anomalies, metrics] = await Promise.all([
+                    api.getSales(),
+                    api.getStores(),
+                    api.getAnomalies(),
+                    api.getDailyMetrics()
+                ]);
+                
+                document.getElementById('kpi-sales').innerText = sales.length.toLocaleString();
+                document.getElementById('kpi-stores').innerText = stores.length.toLocaleString();
+                document.getElementById('kpi-anomalies').innerText = anomalies.length.toLocaleString();
+                
+                const tbody = document.getElementById('metrics-table-body');
+                tbody.innerHTML = '';
+                
+                metrics.slice(0, 10).forEach(m => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${m.metric_date}</td>
+                        <td>${m.store_id}</td>
+                        <td>$${parseFloat(m.net_sales).toFixed(2)}</td>
+                        <td>${m.total_returns}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (err) {
+                console.error(err);
+                document.getElementById('metrics-table-body').innerHTML = '<tr><td colspan="4" class="text-danger">Failed to load data.</td></tr>';
+            }
+        }
+        
+        initDashboard();
+    </script>
+</body>
+</html>

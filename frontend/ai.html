@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinSight AI - FinSightAI</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <div class="sidebar-brand-icon"><i class="ph ph-chart-line-up"></i></div>
+            <div class="sidebar-brand-text">FinSightAI</div>
+        </div>
+        <div class="sidebar-nav">
+            <a href="/" class="nav-link"><i class="ph ph-squares-four nav-link-icon"></i> Dashboard</a>
+            <a href="/finance.html" class="nav-link"><i class="ph ph-currency-dollar nav-link-icon"></i> Finance</a>
+            <a href="/reconciliation.html" class="nav-link"><i class="ph ph-check-circle nav-link-icon"></i> Reconciliation</a>
+            <a href="/ai.html" class="nav-link active"><i class="ph ph-sparkle nav-link-icon"></i> FinSight AI</a>
+        </div>
+    </div>
+    
+    <div class="main-area">
+        <div class="topbar">
+            <div class="topbar-left">
+                <div class="page-title">FinSight Reconciliation Assistant</div>
+            </div>
+            <div class="topbar-right">
+                <button class="topbar-icon-btn"><i class="ph ph-bell"></i></button>
+                <div class="topbar-avatar">
+                    <div class="avatar">AU</div>
+                    <span style="font-size: 0.8125rem; font-weight: 500;">Admin User</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-content">
+            <div class="copilot-container">
+                <div class="chat-history" id="chat-history">
+                    <div class="chat-bubble assistant">
+                        Hello! I am the FinSight Reconciliation Assistant. How can I help you analyze your finance data today?
+                    </div>
+                </div>
+                
+                <div class="chat-suggested" id="chat-suggested">
+                    <button class="chat-suggested-btn" onclick="sendSuggested('What is the latest reconciliation status?')">What is the latest reconciliation status?</button>
+                    <button class="chat-suggested-btn" onclick="sendSuggested('How many invoices were reconciled?')">How many invoices were reconciled?</button>
+                    <button class="chat-suggested-btn" onclick="sendSuggested('How many invoices were blocked?')">How many invoices were blocked?</button>
+                    <button class="chat-suggested-btn" onclick="sendSuggested('Why were invoices blocked?')">Why were invoices blocked?</button>
+                    <button class="chat-suggested-btn" onclick="sendSuggested('What does FINANCE_FIELDS_INCOMPLETE mean?')">What does FINANCE_FIELDS_INCOMPLETE mean?</button>
+                    <button class="chat-suggested-btn" onclick="sendSuggested('What are the current reconciliation anomalies?')">What are the current reconciliation anomalies?</button>
+                </div>
+                
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" class="chat-input" placeholder="Ask a reconciliation question..." onkeypress="handleEnter(event)">
+                    <button class="btn btn-primary" onclick="sendMessage()" id="send-btn"><i class="ph ph-paper-plane-right"></i> Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/js/api.js"></script>
+    <script>
+        const chatHistory = document.getElementById('chat-history');
+        const chatInput = document.getElementById('chat-input');
+        const sendBtn = document.getElementById('send-btn');
+        
+        function appendMessage(role, text) {
+            const bubble = document.createElement('div');
+            bubble.className = `chat-bubble ${role}`;
+            
+            if (role === 'assistant') {
+                bubble.innerHTML = marked.parse(text);
+            } else {
+                bubble.innerText = text;
+            }
+            
+            chatHistory.appendChild(bubble);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+        async function sendMessage(messageText = null) {
+            const text = messageText || chatInput.value.trim();
+            if (!text) return;
+            
+            chatInput.value = '';
+            chatInput.disabled = true;
+            sendBtn.disabled = true;
+            
+            appendMessage('user', text);
+            
+            // Add loading indicator
+            const loadingBubble = document.createElement('div');
+            loadingBubble.className = 'chat-bubble assistant';
+            loadingBubble.id = 'loading-bubble';
+            loadingBubble.innerHTML = '<i class="ph ph-spinner animate-spin"></i> Thinking...';
+            chatHistory.appendChild(loadingBubble);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+            
+            try {
+                const response = await api.chat(text);
+                document.getElementById('loading-bubble').remove();
+                appendMessage('assistant', response.answer);
+            } catch (err) {
+                console.error(err);
+                document.getElementById('loading-bubble').remove();
+                appendMessage('assistant', 'Sorry, there was an error processing your request. Make sure the backend is running and the GROQ API key is valid.');
+            } finally {
+                chatInput.disabled = false;
+                sendBtn.disabled = false;
+                chatInput.focus();
+            }
+        }
+        
+        function sendSuggested(text) {
+            sendMessage(text);
+        }
+        
+        function handleEnter(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        }
+    </script>
+</body>
+</html>

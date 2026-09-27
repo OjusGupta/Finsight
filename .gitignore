@@ -49,3 +49,9 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+
+# Chroma vector store
+.chroma_db/
+
+# Node
+node_modules/

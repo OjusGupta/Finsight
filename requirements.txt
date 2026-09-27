@@ -8,3 +8,26 @@ uvicorn[standard]
 sqlalchemy
 pydantic
 pydantic-settings
+
+# Auth
+python-jose[cryptography]
+passlib[bcrypt]
+
+# AI / LLM
+langchain
+langchain-core
+langchain-google-genai
+langchain-groq
+langchain-community
+langchain-text-splitters
+langchain-huggingface
+langchain-chroma
+
+# Vector store
+chromadb
+
+# LangGraph orchestration
+langgraph
+
+# HTTP
+requests

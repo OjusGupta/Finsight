@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance - FinSightAI</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <div class="sidebar-brand-icon"><i class="ph ph-chart-line-up"></i></div>
+            <div class="sidebar-brand-text">FinSightAI</div>
+        </div>
+        <div class="sidebar-nav">
+            <a href="/" class="nav-link"><i class="ph ph-squares-four nav-link-icon"></i> Dashboard</a>
+            <a href="/finance.html" class="nav-link active"><i class="ph ph-currency-dollar nav-link-icon"></i> Finance</a>
+            <a href="/reconciliation.html" class="nav-link"><i class="ph ph-check-circle nav-link-icon"></i> Reconciliation</a>
+            <a href="/ai.html" class="nav-link"><i class="ph ph-sparkle nav-link-icon"></i> FinSight AI</a>
+        </div>
+    </div>
+    
+    <div class="main-area">
+        <div class="topbar">
+            <div class="topbar-left">
+                <div class="page-title">Finance</div>
+            </div>
+            <div class="topbar-right">
+                <button class="topbar-icon-btn"><i class="ph ph-bell"></i></button>
+                <div class="topbar-avatar">
+                    <div class="avatar">AU</div>
+                    <span style="font-size: 0.8125rem; font-weight: 500;">Admin User</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-content">
+            <div class="page-header">
+                <h1 class="page-title">Finance Overview</h1>
+            </div>
+            
+            <div class="kpi-strip">
+                <div class="kpi-item">
+                    <div class="kpi-label"><i class="ph ph-receipt"></i> Total Transactions</div>
+                    <div class="kpi-value text-success" id="kpi-tx">-</div>
+                </div>
+            </div>
+            
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Sale ID</th>
+                            <th>Date</th>
+                            <th>Total Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sales-table-body">
+                        <tr><td colspan="4">Loading data...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/js/api.js"></script>
+    <script>
+        async function initFinance() {
+            try {
+                const sales = await api.getSales();
+                document.getElementById('kpi-tx').innerText = sales.length.toLocaleString();
+                
+                const tbody = document.getElementById('sales-table-body');
+                tbody.innerHTML = '';
+                
+                sales.slice(0, 15).forEach(s => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${s.sale_id}</td>
+                        <td>${s.sale_date}</td>
+                        <td>$${parseFloat(s.total_amount).toFixed(2)}</td>
+                        <td>${s.status}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (err) {
+                console.error(err);
+                document.getElementById('sales-table-body').innerHTML = '<tr><td colspan="4" class="text-danger">Failed to load data.</td></tr>';
+            }
+        }
+        
+        initFinance();
+    </script>
+</body>
+</html>

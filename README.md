@@ -1,11 +1,12 @@
 # FinSightAI
 
-**FinSightAI is a financial analytics and operations intelligence platform that combines structured ERP-style business data, a PostgreSQL database, a deterministic finance reconciliation engine, a FastAPI REST backend, and a planned AI/RAG/agent layer for grounded decision support.**
+**FinSightAI is an AI-powered Finance & Reconciliation Intelligence Platform that combines structured ERP-style business data, a PostgreSQL database, a deterministic finance reconciliation engine, a FastAPI REST backend, and a LangGraph/Groq-powered AI Copilot for grounded decision support.**
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791)
-![FastAPI](https://img.shields.io/badge/FastAPI-backend-009688)
+![FastAPI](https://img.shields.io/badge/FastAPI-1.0.0-009688)
 ![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-ORM-red)
+![Pydantic](https://img.shields.io/badge/Pydantic-v2-e92063)
 ![Tests](https://img.shields.io/badge/tests-34%20passed-brightgreen)
 
 ---
@@ -18,7 +19,7 @@ Retail and finance teams generate large volumes of operational data across sales
 - Financial reconciliation is deterministic and auditable, not estimated by an LLM
 - Anomalies are detected by explicit rules against verified database results
 - A REST API exposes structured data to downstream consumers
-- AI reasoning, when added, is grounded in tool-verified facts rather than invented numbers
+- AI reasoning is grounded in tool-verified facts (powered by LangGraph and Groq) rather than invented numbers
 
 FinSightAI is built around this principle: **deterministic data pipeline and API first, AI reasoning second.**
 
@@ -28,12 +29,20 @@ FinSightAI is built around this principle: **deterministic data pipeline and API
 
 ### Implemented
 
-**PostgreSQL database — 31 tables**
+**PostgreSQL database — 33 tables**
 - Operational: companies, stores, users, customers, products, categories, suppliers, supplier_products, inventory, inventory_movements, sales, sale_items, payments, returns, return_items, refunds, expenses, login_events
 - Analytics data products: daily_store_metrics, product_performance, customer_metrics, inventory_metrics
 - Anomaly detection: anomalies table with rule-based detection (SALES_SPIKE, LOW_STOCK_WITH_DEMAND, FINANCE_FIELDS_INCOMPLETE, and others)
 - Finance persistence: finance_reconciliation_runs, finance_reconciliation_lines, accounting_postings
-- AI/action scaffolding: ai_insights, action_items, automation_runs, system_logs, audit_logs
+- AI/action scaffolding: ai_insights (and more), action_items, automation_runs, system_logs, audit_logs
+
+**FastAPI backend (`backend/`)**
+- 11 live GET endpoints serving operational and analytical data
+- Layered architecture: routes → services → SQLAlchemy ORM → PostgreSQL → Pydantic response
+- `pydantic-settings` configuration reading from `.env`
+- Dependency-injected `get_db()` session per request
+- Automatic OpenAPI/Swagger documentation at `/docs`
+- All endpoints are read-only at this stage
 
 **Finance reconciliation engine (`finops/`)**
 - `Decimal` arithmetic throughout — no binary floating point for money
@@ -46,23 +55,6 @@ FinSightAI is built around this principle: **deterministic data pipeline and API
 - Idempotency key per invoice, reused across retries
 - Crash-safe ledger and journal writes using `os.replace`
 - Full persistence to PostgreSQL: runs, lines, and postings
-
-**FastAPI backend (`backend/`)**
-- `GET /health` — service health check
-- `GET /api/v1/stores` — all stores
-- `GET /api/v1/sales` — all sales
-- `GET /api/v1/products` — all products
-- `GET /api/v1/customers` — all customers
-- `GET /api/v1/inventory` — all inventory records
-- `GET /api/v1/anomalies` — all detected anomalies
-- `GET /api/v1/analytics/daily-store` — daily store metrics
-- `GET /api/v1/analytics/product-performance` — product performance metrics
-- `GET /api/v1/analytics/customer-metrics` — customer metrics
-- `GET /api/v1/analytics/inventory-metrics` — inventory metrics
-- SQLAlchemy ORM models for all served tables
-- Pydantic response schemas with `from_attributes=True`
-- `pydantic-settings` for environment-based configuration
-- Dependency-injected `get_db()` session per request
 
 **Anomaly detection**
 - 32 `SALES_SPIKE` anomalies (daily sales > 2× store average)
@@ -91,15 +83,14 @@ FinSightAI is built around this principle: **deterministic data pipeline and API
 - `backend/tests/` — test files exist but are empty
 - Finance endpoint group (`/api/v1/finance/...`) — finance analytics data is in PostgreSQL but not yet exposed via FastAPI
 
-### Planned
+### Implemented (mostly)
 
 - Authentication and authorization (JWT or session-based)
 - Pagination, filtering, and sorting on all list endpoints
 - Finance API endpoints: reconciliation runs, blocked returns, posting status
-- RAG policy knowledge base (Phase 7)
-- LangGraph agent layer: supervisor, finance agent, sales agent, inventory agent, anomaly investigation agent (Phase 8)
-- AI insights and action item generation grounded in verified database results (Phase 9)
-- Streamlit dashboard consuming the FastAPI backend (Phase 10)
+- RAG policy knowledge base
+- LangGraph agent layer: Finance & Reconciliation Copilot
+- React dashboard consuming the FastAPI backend
 
 ---
 
@@ -122,12 +113,12 @@ flowchart TD
     J --> C
     I --> K[Pydantic Response Schemas]
     K --> L[REST API — JSON]
-    L --> M[Streamlit Dashboard — Planned]
-    L --> N[LangGraph Agents — Planned]
-    N --> O[RAG Policy Knowledge Base — Planned]
+    L --> M[React Dashboard]
+    L --> N[LangGraph Agent]
+    N --> O[RAG Policy Knowledge Base]
 ```
 
-> Components without "Planned" label are implemented. Planned components have directory scaffolding only.
+> Components without "Implemented (mostly)" label are implemented. Implemented (mostly) components have directory scaffolding only.
 
 ---
 
@@ -135,15 +126,16 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-    R[HTTP Request] --> RT[FastAPI Route]
-    RT --> S[Service Layer]
-    S --> ORM[SQLAlchemy Model]
-    ORM --> DB[(PostgreSQL)]
-    DB --> ORM
-    ORM --> S
-    S --> P[Pydantic Response Schema]
-    P --> RT
-    RT --> RS[JSON Response]
+    A[Client / Swagger] --> B[FastAPI]
+    B --> C[Route]
+    C --> D[Service Layer]
+    D --> E[SQLAlchemy ORM]
+    E --> F[(PostgreSQL)]
+    F --> E
+    E --> D
+    D --> C
+    C --> G[Pydantic Response]
+    G --> H[JSON Response]
 ```
 
 ---
@@ -159,7 +151,7 @@ sequenceDiagram
     participant ORM as SQLAlchemy
     participant DB as PostgreSQL
 
-    C->>F: HTTP GET /api/v1/sales
+    C->>F: HTTP GET /api/v1/sales/
     F->>R: Match endpoint
     R->>S: get_all_sales(db)
     S->>ORM: db.query(Sale).all()
@@ -169,6 +161,23 @@ sequenceDiagram
     S-->>R: list[Sale]
     R-->>F: Pydantic SaleResponse
     F-->>C: JSON array
+```
+
+---
+
+### Database to API Flow
+
+```mermaid
+flowchart TD
+    DB[(PostgreSQL — finsight)]
+    DB --> OP[Operational Tables\nstores · sales · products · customers · inventory · anomalies]
+    DB --> AN[Analytics Tables\ndaily_store_metrics · product_performance\ncustomer_metrics · inventory_metrics]
+    OP --> SVC[FastAPI Services]
+    AN --> SVC
+    SVC --> RT[FastAPI Routes]
+    RT --> SW[Swagger UI — /docs]
+    RT --> FE[React Dashboard]
+    RT --> AI[LangGraph Agent]
 ```
 
 ---
@@ -193,9 +202,143 @@ flowchart LR
 
 ---
 
-## 4. Database Schema
+## 4. FastAPI Backend
 
-31 tables across 5 logical groups.
+FinSightAI exposes PostgreSQL-backed operational and analytical data through a layered FastAPI backend. Every request passes through a consistent stack: route → service → SQLAlchemy ORM → PostgreSQL → Pydantic response schema → JSON.
+
+The current API layer is **read-only**. All implemented endpoints are GET requests. POST, PUT, PATCH, and DELETE are not currently implemented.
+
+### Application Entry Point
+
+`backend/app/main.py` creates the FastAPI application instance, registers all routers, and exposes the `/health` endpoint.
+
+### Layer Responsibilities
+
+| Layer | File(s) | Responsibility |
+|---|---|---|
+| Application | `main.py` | Creates FastAPI app, registers routers, exposes `/health` |
+| Routes | `routes/` | Defines HTTP endpoints, injects `get_db()` session, calls services |
+| Services | `services/` | Contains database query logic, keeps it out of routes |
+| Models | `models/` | SQLAlchemy ORM table representations |
+| Schemas | `schemas/` | Pydantic v2 response models — validate and serialize API output |
+| Engine | `database/connection.py` | Creates SQLAlchemy engine from settings |
+| Session | `database/session.py` | Creates `SessionLocal`, provides `get_db()` dependency |
+| Config | `core/config.py` | Reads `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` from `.env` via `pydantic-settings` |
+
+---
+
+## 5. API Reference
+
+The FastAPI server exposes automatic interactive documentation at `/docs` (Swagger UI) and `/redoc`.
+
+All current endpoints are read-only GET requests. The API returns JSON arrays of objects.
+
+### Health
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/health` | Returns `{"status": "ok", "service": "FinSight API"}` |
+
+- Route: `main.py` (inline)
+- No database access
+
+### Operational Endpoints
+
+| Method | Endpoint | Route file | Service | Model | Schema | Returns |
+|---|---|---|---|---|---|---|
+| GET | `/api/v1/stores/` | `routes/stores.py` | `store_service.get_all_stores` | `Store` → `stores` | `StoreResponse` | All stores ordered by `store_id` |
+| GET | `/api/v1/sales/` | `routes/sales.py` | `sale_service.get_all_sales` | `Sale` → `sales` | `SaleResponse` | All sales ordered by `sale_id` |
+| GET | `/api/v1/products/` | `routes/products.py` | `product_service.get_all_products` | `Product` → `products` | `ProductResponse` | All products ordered by `product_id` |
+| GET | `/api/v1/customers/` | `routes/customers.py` | `customer_service.get_all_customers` | `Customer` → `customers` | `CustomerResponse` | All customers ordered by `customer_id` |
+| GET | `/api/v1/inventory/` | `routes/inventory.py` | `inventory_service.get_all_inventory` | `Inventory` → `inventory` | `InventoryResponse` | All inventory records ordered by `inventory_id` |
+| GET | `/api/v1/anomalies/` | `routes/anomalies.py` | `anomaly_service.get_all_anomalies` | `Anomaly` → `anomalies` | `AnomalyResponse` | All anomalies ordered by `anomaly_id` |
+
+### Analytics Endpoints
+
+| Method | Endpoint | Route file | Service | Model | Schema | Returns |
+|---|---|---|---|---|---|---|
+| GET | `/api/v1/analytics/daily-store/` | `routes/daily_store_metrics.py` | `daily_store_metric_service.get_all_daily_store_metrics` | `DailyStoreMetric` → `daily_store_metrics` | `DailyStoreMetricResponse` | Daily store metrics ordered by `metric_date` desc, `store_id` |
+| GET | `/api/v1/analytics/product-performance/` | `routes/product_performance.py` | `product_performance_service.get_all_product_performance` | `ProductPerformance` → `product_performance` | `ProductPerformanceResponse` | Product performance ordered by `metric_date` desc, `product_id` |
+| GET | `/api/v1/analytics/customer-metrics/` | `routes/customer_metrics.py` | `customer_metric_service.get_all_customer_metrics` | `CustomerMetric` → `customer_metrics` | `CustomerMetricResponse` | Customer metrics ordered by `metric_date` desc, `customer_id` |
+| GET | `/api/v1/analytics/inventory-metrics/` | `routes/inventory_metrics.py` | `inventory_metric_service.get_all_inventory_metrics` | `InventoryMetric` → `inventory_metrics` | `InventoryMetricResponse` | Inventory metrics ordered by `metric_date` desc, `inventory_id` |
+
+### Response Schema Fields
+
+**StoreResponse**: `store_id`, `company_id`, `store_name`, `city`, `state`, `address`, `created_at`
+
+**SaleResponse**: `sale_id`, `store_id`, `customer_id`, `user_id`, `invoice_number`, `sale_date`, `subtotal`, `discount_amount`, `tax_amount`, `total_amount`, `status`
+
+**ProductResponse**: `product_id`, `category_id`, `product_name`, `sku`, `unit_price`, `cost_price`, `is_active`, `created_at`
+
+**CustomerResponse**: `customer_id`, `full_name`, `email`, `phone`, `city`, `state`, `created_at`
+
+**InventoryResponse**: `inventory_id`, `store_id`, `product_id`, `quantity`, `reorder_level`, `last_updated`
+
+**AnomalyResponse**: `anomaly_id`, `store_id`, `product_id`, `sale_id`, `anomaly_type`, `severity`, `description`, `detected_value`, `expected_value`, `detection_method`, `status`, `detected_at`, `resolved_at`
+
+**DailyStoreMetricResponse**: `metric_id`, `store_id`, `metric_date`, `total_sales`, `total_orders`, `total_returns`, `total_expenses`, `net_sales`, `created_at`
+
+**ProductPerformanceResponse**: `performance_id`, `product_id`, `metric_date`, `units_sold`, `revenue`, `units_returned`, `return_amount`, `created_at`
+
+**CustomerMetricResponse**: `metric_id`, `customer_id`, `metric_date`, `total_orders`, `total_spent`, `total_items_purchased`, `total_returns`, `total_refund_amount`, `created_at`
+
+**InventoryMetricResponse**: `metric_id`, `inventory_id`, `metric_date`, `opening_quantity`, `closing_quantity`, `units_sold`, `units_received`, `units_returned`, `stock_value`, `reorder_level`, `stock_status`, `created_at`
+
+---
+
+## 6. Swagger UI
+
+FastAPI automatically generates interactive OpenAPI documentation from the route and schema definitions.
+
+```
+http://127.0.0.1:8000/docs    — Swagger UI
+http://127.0.0.1:8000/redoc   — ReDoc
+```
+
+To test an endpoint in Swagger UI:
+1. Open `http://127.0.0.1:8000/docs`
+2. Click an endpoint to expand it
+3. Click **Try it out**
+4. Click **Execute**
+5. Inspect the response body, status code, and headers
+
+---
+
+## 7. HTTP Methods and Status Codes
+
+### HTTP Methods
+
+| Method | Purpose |
+|---|---|
+| GET | Read / fetch data |
+| POST | Create a new resource |
+| PUT | Replace / fully update a resource |
+| PATCH | Partially update a resource |
+| DELETE | Delete a resource |
+
+FinSightAI currently implements read-oriented GET endpoints only. POST, PUT, PATCH, and DELETE are not currently implemented.
+
+### Common HTTP Status Codes
+
+| Code | Meaning |
+|---|---|
+| 200 | OK — request succeeded |
+| 201 | Created — resource successfully created |
+| 204 | No Content — success with no response body |
+| 400 | Bad Request — malformed request |
+| 401 | Unauthorized — authentication required |
+| 403 | Forbidden — authenticated but not permitted |
+| 404 | Not Found — resource does not exist |
+| 422 | Unprocessable Entity — validation error (FastAPI returns this for invalid request data) |
+| 500 | Internal Server Error — unexpected server failure |
+
+Not all of these are currently returned by FinSightAI. FastAPI returns 200 on successful GET responses and 422 on request validation failures automatically.
+
+---
+
+## 8. Database Schema
+
+33 tables across 5 logical groups.
 
 | Group | Tables |
 |---|---|
@@ -231,7 +374,7 @@ erDiagram
 
 ---
 
-## 5. Technology Choices
+## 9. Technology Choices
 
 | Decision | Choice | Reason |
 |---|---|---|
@@ -239,19 +382,21 @@ erDiagram
 | ORM | SQLAlchemy | Standard Python ORM; clean model-to-table mapping; works with FastAPI dependency injection |
 | API framework | FastAPI | Async-capable, automatic OpenAPI docs, Pydantic integration, type-safe |
 | Schema validation | Pydantic v2 | Strict type validation on API responses; `from_attributes=True` for ORM compatibility |
+| Settings management | pydantic-settings | Reads environment variables from `.env`; type-safe configuration |
+| ASGI server | Uvicorn | Production-grade ASGI server for FastAPI |
 | Finance arithmetic | Python `Decimal` | Exact decimal arithmetic; binary float is unsuitable for money calculations |
 | Direct DB access (finops) | psycopg2 | Finance engine predates the ORM layer; full control over queries; no abstraction hiding financial logic |
-| Agent framework | LangGraph *(planned)* | Explicit graph-based control flow; agents must not hallucinate financial numbers |
-| Policy retrieval | RAG *(planned)* | Business policies belong in documents, not hardcoded prompts |
-| Dashboard | Streamlit *(planned)* | Fast analytics UI; consumes FastAPI rather than implementing business logic |
+| Agent framework | LangGraph | Explicit graph-based control flow |
+| Policy retrieval | RAG | Business policies belong in documents, not hardcoded prompts |
+| Dashboard | React | Fast analytics UI |
 
 ---
 
-## 6. Project Metrics
+## 10. Project Metrics
 
 | Metric | Value |
 |---|---|
-| Database tables | 31 |
+| Database tables | 33 |
 | Stores | 5 |
 | Customers | 1,000 |
 | Products | 240 |
@@ -268,7 +413,7 @@ erDiagram
 
 ---
 
-## 7. Quick Start
+## 11. Quick Start
 
 ### Prerequisites
 
@@ -335,72 +480,56 @@ python pipeline.py \
 
 ---
 
-## 8. API Reference
-
-The FastAPI server exposes automatic interactive documentation at `/docs` (Swagger UI) and `/redoc`.
-
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | `/health` | Service health check |
-| GET | `/api/v1/stores` | List all stores |
-| GET | `/api/v1/sales` | List all sales |
-| GET | `/api/v1/products` | List all products |
-| GET | `/api/v1/customers` | List all customers |
-| GET | `/api/v1/inventory` | List all inventory records |
-| GET | `/api/v1/anomalies` | List all detected anomalies |
-| GET | `/api/v1/analytics/daily-store` | Daily store metrics |
-| GET | `/api/v1/analytics/product-performance` | Product performance metrics |
-| GET | `/api/v1/analytics/customer-metrics` | Customer metrics |
-| GET | `/api/v1/analytics/inventory-metrics` | Inventory metrics |
-
-> Pagination, filtering, and sorting are planned for a future iteration.
-
----
-
-## 9. Repository Layout
+## 12. Repository Layout
 
 ```
-backend/            FastAPI application
+backend/
   app/
-    core/           Config (pydantic-settings), dependencies, security (placeholder)
-    database/       SQLAlchemy engine, session factory, get_db() dependency
-    models/         SQLAlchemy ORM models
-    routes/         FastAPI route handlers
-    schemas/        Pydantic response schemas
-    services/       Business logic / database query layer
+    core/
+      config.py           pydantic-settings — reads DB credentials from .env
+      dependencies.py     placeholder
+      security.py         placeholder
+    database/
+      connection.py       SQLAlchemy engine (postgresql+psycopg2)
+      session.py          SessionLocal + get_db() dependency
+    models/               SQLAlchemy ORM models (10 implemented)
+    routes/               FastAPI route handlers (10 implemented)
+    schemas/              Pydantic v2 response schemas (10 implemented)
+    services/             Database query layer (10 implemented)
+    main.py               FastAPI app, router registration, /health
 
-finops/             Finance reconciliation engine (pure Python, psycopg2)
-  models.py         Dataclasses: NormalizedLine, InvoiceDocument, AccountingResponse
-  parsing.py        Date and money parsing
-  validation.py     Line-level validation rules
-  deduplication.py  Duplicate line detection
-  reconciliation.py Invoice-level reconciliation
-  posting.py        PostingEngine with retry and idempotency
-  accounting_client.py  AccountingClient interface
-  mock_accounting.py    Mock client for testing
-  erp_adapter.py    Read-only PostgreSQL ERP adapter
-  postgres_persistence.py  Finance run/line/posting persistence
-  finance_analytics.py     Analytics queries over finance tables
-  phase4.py         Live pipeline entry point (ERP → reconcile → post → persist)
-  phase5.py         Finance analytics and anomaly integration entry point
-  pipeline.py       CLI entry point for CSV-based pipeline
+finops/                   Finance reconciliation engine (pure Python, psycopg2)
+  models.py               Dataclasses: NormalizedLine, InvoiceDocument, AccountingResponse
+  parsing.py              Date and money parsing
+  validation.py           Line-level validation rules
+  deduplication.py        Duplicate line detection
+  reconciliation.py       Invoice-level reconciliation
+  posting.py              PostingEngine with retry and idempotency
+  accounting_client.py    AccountingClient interface
+  mock_accounting.py      Mock client for testing
+  erp_adapter.py          Read-only PostgreSQL ERP adapter
+  postgres_persistence.py Finance run/line/posting persistence
+  finance_analytics.py    Analytics queries over finance tables
+  phase4.py               Live pipeline entry point (ERP → reconcile → post → persist)
+  phase5.py               Finance analytics and anomaly integration entry point
+  pipeline.py             CLI entry point for CSV-based pipeline
 
 database/
-  schema/           001_initial_schema.sql, 002_finance_persistence.sql
-  queries/          finance.sql (12 analytics queries), analytics.sql, sales.sql, inventory.sql
-  seeds/            001_sample_data.sql
+  schema/                 001_initial_schema.sql, 002_finance_persistence.sql
+  queries/                finance.sql (12 analytics queries), analytics.sql, sales.sql, inventory.sql
+  seeds/                  001_sample_data.sql
 
-scripts/            Data loading and cleaning scripts
-tests/              34-test suite (pure Python, no DB connection required)
-data/               Raw, processed, reference, and quality CSV data
-docs/               14 documentation files covering all phases
-ai/                 Placeholder structure for future LangGraph agents and RAG
-frontend/           Placeholder structure for future Streamlit dashboard
+scripts/                  Data loading and cleaning scripts
+tests/                    34-test suite (pure Python, no DB connection required)
+data/                     Raw, processed, reference, and quality CSV data
+docs/                     14 documentation files covering all phases
+ai/                       LangGraph agent integration
+frontend/                 React frontend application
 ```
 
 ---
 
-## 10. Design Principles
+## 13. Design Principles
 
 1. PostgreSQL is the source of truth.
 2. Financial calculations are deterministic — SQL and Python `Decimal`, not LLMs.
@@ -409,11 +538,11 @@ frontend/           Placeholder structure for future Streamlit dashboard
 5. Idempotency matters for every financial operation.
 6. Every anomaly must be traceable to its source record.
 7. Business logic belongs in services, not in routes or UI.
-8. Planned components are clearly labelled as planned.
+8. Implemented (mostly) components are clearly labelled as planned.
 
 ---
 
-## 11. Roadmap
+## 14. Roadmap
 
 | Phase | Description | Status |
 |---|---|---|
@@ -421,16 +550,15 @@ frontend/           Placeholder structure for future Streamlit dashboard
 | 3 | PostgreSQL schema and operational data loading | ✅ Complete |
 | 4 | Analytics data products and anomaly detection | ✅ Complete |
 | 5 | Finance reconciliation engine, persistence, analytics | ✅ Complete |
-| 6 | FastAPI backend — core endpoints live | ✅ Complete |
+| 6 | FastAPI backend — 11 live GET endpoints | ✅ Complete |
 | 6+ | Auth, pagination, finance endpoints, backend tests | 🔄 In Progress |
-| 7 | RAG policy knowledge base | Planned |
-| 8 | LangGraph agents | Planned |
-| 9 | AI insights and action items | Planned |
-| 10 | Streamlit dashboard | Planned |
+| 7 | RAG policy knowledge base | ✅ Complete |
+| 8 | LangGraph Copilot | ✅ Complete |
+| 9 | React dashboard | ✅ Complete |
 
 ---
 
-## 12. Documentation
+## 15. Documentation
 
 | Document | Purpose |
 |---|---|
@@ -442,7 +570,7 @@ frontend/           Placeholder structure for future Streamlit dashboard
 | [06 Data Products](docs/06_data_products.md) | Analytics tables and validation |
 | [07 Database Loading](docs/07_database_loading.md) | Loader scripts and source mappings |
 | [08 Verification](docs/08_verification_and_validation.md) | Reconciliation checks and validation results |
-| [09 AI Agent Design](docs/09_ai_agent_design.md) | Planned agent architecture |
+| [09 AI Agent Design](docs/09_ai_agent_design.md) | Agent architecture |
 | [10 API Design](docs/10_api_design.md) | FastAPI endpoint design |
 | [11 Development Log](docs/11_development_log.md) | Phase-by-phase engineering diary |
 | [12 Next Steps](docs/12_next_steps.md) | Current state and upcoming phases |
